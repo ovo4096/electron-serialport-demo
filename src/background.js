@@ -3,6 +3,18 @@ import {
   createProtocol,
   /* installVueDevtools */
 } from 'vue-cli-plugin-electron-builder/lib';
+import SerialPort from 'serialport';
+
+const port = new SerialPort('USB\\VID_067B&PID_2303\\5&22417079&0&2');
+let flag = false;
+setInterval(() => {
+  if (flag) {
+    port.write(Buffer.from([0x01, 0x05, 0x00, 0x00, 0xFF, 0x00]));
+  } else {
+    port.write(Buffer.from([0x01, 0x05, 0x00, 0x00, 0x00, 0x00]));
+  }
+  flag = !flag;
+}, 3000);
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
