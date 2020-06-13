@@ -13,17 +13,28 @@ const port = new SerialPort('COM7');
 
 port.on('open', () => {
   console.log('open');
-  let flag = false;
-  setInterval(() => {
-    if (flag) {
-      console.log('on');
-      port.write(Buffer.from([0x01, 0x05, 0x00, 0x00, 0xFF, 0x00, 0x8C, 0x3A]));
-    } else {
-      console.log('off');
-      port.write(Buffer.from([0x01, 0x05, 0x00, 0x00, 0x00, 0x00, 0xCD, 0xCA]));
-    }
-    flag = !flag;
-  }, 3000);
+  // let flag = false;
+  // setInterval(() => {
+  //   if (flag) {
+  //     console.log('on');
+  //     port.write(Buffer.from([0x01, 0x05, 0x00, 0x00, 0xFF, 0x00, 0x8C, 0x3A]));
+  //   } else {
+  //     console.log('off');
+  //     port.write(Buffer.from([0x01, 0x05, 0x00, 0x00, 0x00, 0x00, 0xCD, 0xCA]));
+  //   }
+  //   flag = !flag;
+  // }, 3000);
+  port.write(Buffer.from([0x01, 0x05, 0x00, 0x00, 0xFF, 0x00, 0x8C, 0x3A]));
+  port.write(Buffer.from([0x01, 0x05, 0x00, 0x01, 0xFF, 0x00, 0xDD, 0xFA]));
+
+  // port.write(Buffer.from([0x01, 0x05, 0x00, 0x00, 0x00, 0x00, 0xCD, 0xCA]));
+  // port.write(Buffer.from([0x01, 0x05, 0x00, 0x01, 0x00, 0x00, 0x9C, 0x0A]));
+
+  // 01 05 00 00 FF 00 8C 3A
+  // 01 05 00 00 00 00 CD CA
+  //
+  // 01 05 00 01 FF 00 DD FA
+  // 01 05 00 01 00 00 9C 0A
 });
 
 port.on('data', (data) => {
