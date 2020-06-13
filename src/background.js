@@ -9,8 +9,10 @@ const port = new SerialPort('USB\\VID_067B&PID_2303\\5&22417079&0&2');
 let flag = false;
 setInterval(() => {
   if (flag) {
+    console.log('hello');
     port.write(Buffer.from([0x01, 0x05, 0x00, 0x00, 0xFF, 0x00]));
   } else {
+    console.log('fake');
     port.write(Buffer.from([0x01, 0x05, 0x00, 0x00, 0x00, 0x00]));
   }
   flag = !flag;
