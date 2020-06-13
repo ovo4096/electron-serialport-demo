@@ -24,7 +24,7 @@ function createWindow() {
     webPreferences: {
     // Use pluginOptions.nodeIntegration, leave this alone
     // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
+      nodeIntegration: true,
     },
   });
 
@@ -97,7 +97,7 @@ if (isDevelopment) {
 }
 
 // 串口初始化
-const serialPort = new SerialPort('COM7');
+const serialPort = new SerialPort('COM3');
 
 ipcMain.on('serialPort:write', (event, args) => {
   serialPort.write(args);
