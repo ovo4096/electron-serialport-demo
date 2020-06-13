@@ -9,18 +9,26 @@ import SerialPort from 'serialport';
   console.log(await SerialPort.list());
 })();
 
-// const port = new SerialPort('USB\\VID_067B&PID_2303\\5&22417079&0&2');
-// let flag = false;
-// setInterval(() => {
-//   if (flag) {
-//     console.log('hello');
-//     port.write(Buffer.from([0x01, 0x05, 0x00, 0x00, 0xFF, 0x00]));
-//   } else {
-//     console.log('fake');
-//     port.write(Buffer.from([0x01, 0x05, 0x00, 0x00, 0x00, 0x00]));
-//   }
-//   flag = !flag;
-// }, 3000);
+const port = new SerialPort('COM7');
+
+port.on('open', () => {
+  console.log('open');
+  let flag = false;
+  setInterval(() => {
+    if (flag) {
+      console.log('on');
+      port.write(Buffer.from([0x01, 0x05, 0x00, 0x00, 0xFF, 0x00, 0x8C, 0x3A]));
+    } else {
+      console.log('off');
+      port.write(Buffer.from([0x01, 0x05, 0x00, 0x00, 0x00, 0x00, 0xCD, 0xCA]));
+    }
+    flag = !flag;
+  }, 3000);
+});
+
+port.on('data', (data) => {
+  console.log(data);
+});
 
 const isDevelopment = process.env.NODE_ENV !== 'production';
 
